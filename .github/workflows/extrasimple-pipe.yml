@@ -5,27 +5,25 @@ name: Simple Pipe
 
 on:
   push:
-    branches: [ main ]
+    branches: [ debug ]
   pull_request:
-    branches: [ main ]
+    branches: [ debug ]
 
 jobs:
-  build:
-
+ 
+  info:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
-          count-args:
-      
-    runs-on: ubuntu-latest
+    - name: Print warning message
+      run: |
+        echo "::warning::This version is for debugging only."
+    - name: Dump context for runner
+      env:
+        RUNNER_CONTEXT: ${{ toJSON(runner) }}
+      run: 
+        echo "::debug::Runner context is above."
+
+
     
 
